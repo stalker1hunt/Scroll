@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEditor;
 
 [RequireComponent(typeof(ScrollRect))]
 public class ScrollMove : MonoBehaviour, IScrollMove
@@ -11,9 +12,11 @@ public class ScrollMove : MonoBehaviour, IScrollMove
     [HideInInspector]
     public ScrollRect scrollRect;
     private Coroutine smoothControll;
+    [SerializeField]
+    private ScrollType scrollType;
 
     private void Start()
-    {
+    { 
         scrollRect = GetComponent<ScrollRect>();
     }
 
@@ -23,9 +26,7 @@ public class ScrollMove : MonoBehaviour, IScrollMove
         Action action = () => { StopCoroutine(smoothControll); smoothControll = smoothControll != null ? null : smoothControll; };
 
         if (smoothControll == null)
-        {
             smoothControll = StartCoroutine(SmothScroll(finalPos, action));
-        }
     }
 
     public void MoveTo(float value)
@@ -79,5 +80,41 @@ public class ScrollMove : MonoBehaviour, IScrollMove
     {
         Move(ScrollMoveType.Down);
     }
+    #endregion
+
+    #region Flags
+
+    [Serializable]
+    public class Flag
+    {
+        public string NameFlag;
+        public ScrollType ScrollType;
+        public float NormalizateValue;
+
+        public Flag() { }
+        public Flag(Flag _f)
+        {
+            NameFlag = _f.NameFlag;
+            ScrollType = _f.ScrollType;
+            NormalizateValue = _f.NormalizateValue;
+        }
+    }
+
+    public List<Flag> Flags = new List<Flag>();
+
+    public void SaveFlag(string _nameFlag)
+    {
+        Flag flag = new Flag();
+        flag.NameFlag = _nameFlag;
+        flag.ScrollType = scrollType;
+        flag.NormalizateValue = scrollType == ScrollType.Horizontal ? scrollRect.horizontalNormalizedPosition : scrollRect.verticalNormalizedPosition;
+        Flags.Add(flag);
+    }
+
+    public void DeleteFlag()
+    {
+
+    }
+
     #endregion
 }
