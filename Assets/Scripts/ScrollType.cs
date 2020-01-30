@@ -1,5 +1,6 @@
 ﻿public enum ScrollType 
 {
    Vertical,
-   Horizontal
+   Horizontal,
+   Default
 }

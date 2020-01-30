@@ -21,32 +21,13 @@ public class ScrollEditor : Editor
         ScrollMove myScript = (ScrollMove)target;
 
         if (GUILayout.Button("Save Flag"))
-            myScript.SaveFlag(Guid.NewGuid().ToString());
+            myScript.SaveFlag($"Flag_{myTarget.Flags.Count}");
 
         EditorGUILayout.BeginVertical();
         for (int i = 0; i < myTarget.Flags.Count; i++)
         {
             EditorGUILayout.BeginHorizontal();
-            GUI.color = new Color(1f, 0.5f, 0f);
-            if (GUILayout.Button("ReBake"))
-            {
-                int index = i; List<FlagData> toremove = new List<FlagData>();
-                //foreach (var el in myTarget.Flags[index])
-                //{
-                //    if (el == null || el.target == null)
-                //    {
-                //        toremove.Add(el);
-                //        Debug.LogError("Must Del broken element!");
-                //    }
-                //    else
-                //    {
-                //        el.localSize = el.target.localScale;
-                //        el.localPos = el.target.parent != null ? el.target.localPosition : el.target.position;
-                //        el.localEulerEngles = el.target.parent != null ? el.target.localEulerAngles : el.target.eulerAngles;
-                //    }
-                //}
-              //  myTarget.Flags[index].Elements.RemoveRange(toremove);
-            }
+
             GUI.color = Color.red;
             if (GUILayout.Button("Del"))
             {
@@ -58,12 +39,12 @@ public class ScrollEditor : Editor
         }
         EditorGUILayout.EndVertical();
 
-        GUI.color = Color.green;
-        if (GUILayout.Button("Save"))
-        {
-            EditorUtility.SetDirty(myTarget);
-            AssetDatabase.SaveAssets();
-            AssetDatabase.Refresh();
-        }
+        //GUI.color = Color.green;
+        //if (GUILayout.Button("Save"))
+        //{
+        //    EditorUtility.SetDirty(myTarget);
+        //    AssetDatabase.SaveAssets();
+        //    AssetDatabase.Refresh();
+        //}
     }
 }

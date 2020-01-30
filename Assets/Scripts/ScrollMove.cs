@@ -9,16 +9,10 @@ using UnityEditor;
 [RequireComponent(typeof(ScrollRect))]
 public class ScrollMove : MonoBehaviour, IScrollMove
 {
-    [HideInInspector]
     public ScrollRect scrollRect;
     private Coroutine smoothControll;
     [SerializeField]
     private ScrollType scrollType;
-
-    private void Start()
-    { 
-        scrollRect = GetComponent<ScrollRect>();
-    }
 
     public void Move(ScrollMoveType moveType)
     {
@@ -33,6 +27,9 @@ public class ScrollMove : MonoBehaviour, IScrollMove
     {
         scrollRect.verticalNormalizedPosition = value;
     }
+
+
+
 
     IEnumerator SmothScroll(float value, Action onEnd = null)
     {
@@ -111,9 +108,27 @@ public class ScrollMove : MonoBehaviour, IScrollMove
         Flags.Add(flag);
     }
 
-    public void DeleteFlag()
+    /// <summary>
+    /// Number flag only > 1
+    /// </summary>
+    /// <param name="number"></param>
+    /// <param name="scrollType"></param>
+    public void MoveToFlag(int number, ScrollType scrollType = ScrollType.Default)
     {
+        var _flag = Flags[number - 1];
+        if (_flag != null)
+            MoveTo(_flag.NormalizateValue);
+        else
+            throw new Exception("Flag is not be find!");
+    }
 
+    public void MoveToFlag(string id, ScrollType scrollType = ScrollType.Default)
+    {
+        var _flag = Flags.Find(x => x.NameFlag == id);
+        if (_flag != null)
+            MoveTo(_flag.NormalizateValue);
+        else
+            throw new Exception($"Flag {id} is not be find!");
     }
 
     #endregion
