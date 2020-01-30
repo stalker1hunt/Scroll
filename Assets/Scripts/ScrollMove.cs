@@ -28,9 +28,6 @@ public class ScrollMove : MonoBehaviour, IScrollMove
         scrollRect.verticalNormalizedPosition = value;
     }
 
-
-
-
     IEnumerator SmothScroll(float value, Action onEnd = null)
     {
         float scrollPos = scrollRect.verticalNormalizedPosition;
@@ -109,7 +106,7 @@ public class ScrollMove : MonoBehaviour, IScrollMove
     }
 
     /// <summary>
-    /// Number flag only > 1
+    /// Number flag only > 0
     /// </summary>
     /// <param name="number"></param>
     /// <param name="scrollType"></param>
@@ -130,6 +127,5 @@ public class ScrollMove : MonoBehaviour, IScrollMove
         else
             throw new Exception($"Flag {id} is not be find!");
     }
-
     #endregion
 }
