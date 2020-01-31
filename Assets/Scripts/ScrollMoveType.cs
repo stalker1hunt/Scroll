@@ -2,5 +2,6 @@
 {
   Up = 1,
   Down,
-  Center
+  Center,
+  Default
 }

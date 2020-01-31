@@ -9,23 +9,20 @@ using UnityEditor;
 [RequireComponent(typeof(ScrollRect))]
 public class ScrollMove : MonoBehaviour, IScrollMove
 {
+    private static ScrollMove instance;
+    public static ScrollMove Instance { get { return instance ? instance : instance = FindObjectOfType<ScrollMove>(); } }
+
     public ScrollRect scrollRect;
     private Coroutine smoothControll;
     [SerializeField]
     private ScrollType scrollType;
 
-    public void Move(ScrollMoveType moveType)
+    public void Move(float _normalizatePos)
     {
-        float finalPos = moveType == ScrollMoveType.Down ? 0 : moveType == ScrollMoveType.Up ? 1 : 0.5f;
         Action action = () => { StopCoroutine(smoothControll); smoothControll = smoothControll != null ? null : smoothControll; };
 
         if (smoothControll == null)
-            smoothControll = StartCoroutine(SmothScroll(finalPos, action));
-    }
-
-    public void MoveTo(float value)
-    {
-        scrollRect.verticalNormalizedPosition = value;
+            smoothControll = StartCoroutine(SmothScroll(_normalizatePos, action));
     }
 
     IEnumerator SmothScroll(float value, Action onEnd = null)
@@ -58,23 +55,6 @@ public class ScrollMove : MonoBehaviour, IScrollMove
         }
         onEnd?.Invoke();
     }
-
-    #region Buttons
-    public void MoveUp()
-    {
-        Move(ScrollMoveType.Up);
-    }
-
-    public void MoveCenter()
-    {
-        Move(ScrollMoveType.Center);
-    }
-
-    public void MoveDown()
-    {
-        Move(ScrollMoveType.Down);
-    }
-    #endregion
 
     #region Flags
 
@@ -114,7 +94,7 @@ public class ScrollMove : MonoBehaviour, IScrollMove
     {
         var _flag = Flags[number - 1];
         if (_flag != null)
-            MoveTo(_flag.NormalizateValue);
+            Move(_flag.NormalizateValue);
         else
             throw new Exception("Flag is not be find!");
     }
@@ -123,7 +103,7 @@ public class ScrollMove : MonoBehaviour, IScrollMove
     {
         var _flag = Flags.Find(x => x.NameFlag == id);
         if (_flag != null)
-            MoveTo(_flag.NormalizateValue);
+            Move(_flag.NormalizateValue);
         else
             throw new Exception($"Flag {id} is not be find!");
     }
