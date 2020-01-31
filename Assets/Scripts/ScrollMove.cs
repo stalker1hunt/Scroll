@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,8 +16,19 @@ public class ScrollMove : MonoBehaviour, IScrollMove
     [SerializeField]
     private ScrollType scrollType;
 
+    private void Awake()
+    {
+        instance = this;
+    }
+
     public void Move(float _normalizatePos)
     {
+        if (scrollRect == null)
+        {
+            Debug.LogWarning($"Please attach ScrollView to object {this.gameObject.name}"); 
+            return;
+        }
+
         Action action = () => { StopCoroutine(smoothControll); smoothControll = smoothControll != null ? null : smoothControll; };
 
         if (smoothControll == null)
@@ -65,6 +75,7 @@ public class ScrollMove : MonoBehaviour, IScrollMove
         flag.NameFlag = _nameFlag;
         flag.ScrollType = scrollType;
         flag.NormalizateValue = scrollType == ScrollType.Horizontal ? scrollRect.horizontalNormalizedPosition : scrollRect.verticalNormalizedPosition;
+        flag.NormalizateValue = flag.NormalizateValue < 0 ? 0 : flag.NormalizateValue;
         Flags.Add(flag);
     }
 
