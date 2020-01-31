@@ -745,7 +745,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 367.6393}
+  m_AnchoredPosition: {x: 0, y: 366.8874}
   m_SizeDelta: {x: 0.00079346, y: 960}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &287437627
@@ -1912,13 +1912,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scrollRect: {fileID: 784459321}
   scrollType: 0
-  Flags:
-  - NameFlag: Flag_0
-    ScrollType: 0
-    NormalizateValue: 0.4172035
-  - NameFlag: Flag_1
-    ScrollType: 0
-    NormalizateValue: 0.4172035
+  Flags: []
 --- !u!1 &848612751
 GameObject:
   m_ObjectHideFlags: 0
@@ -5790,8 +5784,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 631920166}
   m_HandleRect: {fileID: 631920165}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 0.61704236
+  m_Value: 0.0017286413
+  m_Size: 0.61716384
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

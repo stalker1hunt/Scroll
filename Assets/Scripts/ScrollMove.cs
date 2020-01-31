@@ -57,23 +57,6 @@ public class ScrollMove : MonoBehaviour, IScrollMove
     }
 
     #region Flags
-
-    [Serializable]
-    public class Flag
-    {
-        public string NameFlag;
-        public ScrollType ScrollType;
-        public float NormalizateValue;
-
-        public Flag() { }
-        public Flag(Flag _f)
-        {
-            NameFlag = _f.NameFlag;
-            ScrollType = _f.ScrollType;
-            NormalizateValue = _f.NormalizateValue;
-        }
-    }
-
     public List<Flag> Flags = new List<Flag>();
 
     public void SaveFlag(string _nameFlag)
